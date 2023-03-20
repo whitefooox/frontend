@@ -30,7 +30,10 @@ function Player(props){
         <>
             <Select 
                 data={anime.data}
-                getValue={(targetSeason) => {setSeason(targetSeason)}}
+                getValue={(targetSeason) => {
+                    setSeason(targetSeason);
+                    setSeria(Object.keys(anime.data[targetSeason])[0]);
+                }}
             />
             <Select 
                 data={anime.data[season]}
