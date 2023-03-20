@@ -6,12 +6,12 @@ import AnimeContext from "../../context/AnimeContext";
 
 function Player(props){
 
-    const [season, setSeason] = useState(null);
-    const [seria, setSeria] = useState(null);
+    const {anime} = useContext(AnimeContext);
+
+    const [season, setSeason] = useState(Object.keys(anime.data)[0]);
+    const [seria, setSeria] = useState(Object.keys(anime.data[season])[0]);
     const [status, setStatus] = useState(null);
     const [source, setSource] = useState(null);
-
-    const {anime} = useContext(AnimeContext);
 
     const animeService = AnimeServiceFactory.createInstance();
 
