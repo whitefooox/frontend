@@ -1,75 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../simple/Button";
 import Select from "../simple/Select";
 import AnimeServiceFactory from "../../../model/services/AnimeServices";
 
-class Player extends React.Component {
+function Player(props){
 
-    constructor(props){
-        super(props);
-        this.state = {
-            anime: this.props.anime,
-            season: null,
-            seria: null,
-            source: null,
-            status: null
-        };
-        this.animeService = AnimeServiceFactory.createInstance();
-        this.animeService.subscribe((anime) => {
-            this.getAnime(anime);
-        })
-        this.getSeason = this.getSeason.bind(this);
-        this.getSeria = this.getSeria.bind(this);
-        this.getSource = this.getSource.bind(this);
-    }
+    const [season, setSeason] = useState(null);
+    const [seria, setSeria] = useState(null);
+    const [status, setStatus] = useState(null);
+    const [source, setSource] = useState(null);
 
-    getSeason(season){
-        this.setState({
-            season: season
-        });
-    }
+    const animeService = AnimeServiceFactory.createInstance();
 
-    getSeria(seria){
-        this.setState({
-            seria: seria
-        });
-    }
-
-    getSource(){
-        this.animeService.getSource(this.state.anime.data[this.state.season][this.state.seria])
+    function hundleButton(){
+        animeService.getSource(props.anime.data[season][seria])
         .then((url) => {
-            this.setState({
-                source: url,
-                status: "ok"
-            });
+           setSource(url);
+           setStatus('ok');
         })
         .catch(() => {
-            this.setState({
-                status: "error"
-            })
+            setStatus('error');
         })
     }
 
-    render(){
-        return (
-            <>
-                <Select 
-                    data={this.state.anime.data}
-                    getValue={this.getSeason}
-                />
-                <Select 
-                    data={this.state.anime.data[this.state.season]}
-                    getValue={this.getSeria}
-                />
-                <Button
-                    name="Play"
-                    onClick={this.getSource}
-                />
-                <br/>
-                {this.state.status === "ok" && <iframe title="This is a unique title" allowFullScreen width="720" height="405" src={this.state.source}></iframe>}
-            </>
-        )
-    }
+    return (
+        <>
+            <Select 
+                data={props.anime.data}
+                getValue={(targetSeason) => {setSeason(targetSeason)}}
+            />
+            <Select 
+                data={props.anime.data[season]}
+                getValue={(targetSeria) => {setSeria(targetSeria)}}
+            />
+            <Button
+                name="Play"
+                onClick={hundleButton}
+            />
+            <br/>
+            {status === "ok" && <iframe title="This is a unique title" allowFullScreen width="720" height="405" src={source}></iframe>}
+        </>
+    )
 }
 
 export default Player;

@@ -1,63 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import AnimeServiceFactory from "../../model/services/AnimeServices";
 import Info from "../component/func/Info";
 import Player from "../component/func/Player";
 import SearchBar from "../component/simple/SearchBar";
 
-class Main extends React.Component {
+function Main(props){
 
-    constructor(props){
-        super(props);
-        this.state = {
-            status: null,
-            anime: null,
-        };
-        this.animeService = AnimeServiceFactory.createInstance();
-        this.animeService.subscribe((anime) => {
-            this.getAnime(anime);
-        })
-        this.getSearch = this.getSearch.bind(this);
-        this.getAnime = this.getAnime.bind(this);
-    }
+    const [status, setStatus] = useState('');
+    const [anime, setAnime] = useState(null);
 
-    getSearch(query){
-        this.setState({
-            status: "search"
-        })
-        this.animeService.search(query);
-    }
-
-    getAnime(anime){
+    const animeService = AnimeServiceFactory.createInstance();
+    animeService.subscribe((anime) => {
         if(anime === null){
-            this.setState({
-                status: "error"
-            })
+            setStatus('error');
         } else {
-            this.setState({
-                status: "ok"
-            })
+            setStatus('ok');
+            setAnime(anime);
         }
-        this.setState({
-            anime: anime
-        })
+    })
+
+    function handleSearch(query){
+        setStatus("search");
+        animeService.search(query);
     }
 
-    render(){
-        return (
-            <div style={{textAlign: "center"}}>
-                <SearchBar
-                    getValue={this.getSearch}
-                />
-                <Info
-                    status={this.state.status}
-                    name={this.state.status === "ok" ? this.state.anime.name : null}
-                    img={this.state.status === "ok" ? this.state.anime.image : null}
-                />
-                <br/>
-                {this.state.status === "ok" && <Player anime={this.state.anime}/>}
-            </div>
-        )
-    }
+    return (
+        <div style={{textAlign: "center"}}>
+            <SearchBar
+                getValue={handleSearch}
+            />
+            <Info
+                status={status}
+                name={status === "ok" ? anime.name : null}
+                img={status === "ok" ? anime.image : null}
+            />
+            <br/>
+            {status === "ok" && <Player anime={anime}/>}
+        </div>
+    )
 }
 
 export default Main;

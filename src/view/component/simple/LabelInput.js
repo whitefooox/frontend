@@ -1,25 +1,18 @@
 import React from "react";
 
-class LabelInput extends React.Component {
+function LabelInput(props){
 
-    constructor(props){
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
+    function handleInput(e){
+        props.getValue(e.target.value);
     }
 
-    handleChange(e){
-        this.props.getValue(e.target.value);
-    }
-
-    render(){
-        return (
-            <>
-                <label>{this.props.name}</label>
-                <br/>
-                <input type={this.props.type} onChange={this.handleChange}></input>
-            </>
-        )
-    }
+    return (
+        <>
+            <label>{props.name}</label>
+            <br/>
+            <input type={props.type} onChange={handleInput}></input>
+        </>
+    )
 }
 
 export default LabelInput;

@@ -1,35 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../component/simple/Button";
 import Login from "../component/func/Login";
 import Registration from "../component/func/Registration";
 
-class Auth extends React.Component {
+function Auth(props){
 
-    constructor(props){
-        super(props)
-        this.state = {
-            isRegistration: false
-        }
-        this.onClick = this.onClick.bind(this);
-    }
+    const [isRegistration, setIsRegistration] = useState(false);
 
-    onClick(){
-        this.setState({
-            isRegistration: !this.state.isRegistration
-        });
-    }
-
-    render(){
-        return (
-            <div style={{textAlign: "center"}}>
-                {this.state.isRegistration ? <Registration/> : <Login/>}
-                <Button
-                    name={this.state.isRegistration ? "Already have an account?" : "Create an account."}
-                    onClick={this.onClick}
-                />
-            </div>
-        )
-    }
+    return (
+        <div style={{textAlign: "center"}}>
+            {isRegistration ? <Registration/> : <Login/>}
+            <Button
+                name={isRegistration ? "Already have an account?" : "Create an account."}
+                onClick={() => {setIsRegistration(!isRegistration)}}
+            />
+        </div>
+    )
 }
 
 export default Auth;

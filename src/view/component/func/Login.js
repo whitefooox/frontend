@@ -1,79 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../simple/Button";
 import LabelInput from "../simple/LabelInput";
 import AuthServiceFactory from "../../../model/services/AuthService";
 import User from "../../../model/dto/User";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ColorText from "../simple/ColorText";
 
-class Login extends React.Component {
+function Login(props){
 
-    constructor(props){
-        super(props);
-        this.state = {
-            login: "",
-            password: "",
-            status: null
-        }
-        this.onChangeLogin = this.onChangeLogin.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
-        this.onClickLogin = this.onClickLogin.bind(this);
+    const navigate = useNavigate();
+
+    const [status, setStatus] = useState('');
+    const [login, setLogin] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleLogin(login){
+        setLogin(login);
     }
 
-    onChangeLogin(login){
-        this.setState({
-            login: login
-        });
+    function handlePassword(password){
+        setPassword(password);
     }
 
-    onChangePassword(password){
-        this.setState({
-            password: password
-        });
-    }
-
-    onClickLogin(){
+    function handleButton(){
         const authService = AuthServiceFactory.createInstance();
         const user = new User();
-        user.login = this.state.login;
-        user.password = this.state.password;
+        user.login = login;
+        user.password = password;
         authService.signIn(user)
         .then(() => {
-            this.setState({
-                status: "ok" 
-            });
+            setStatus("ok");
+            navigate('/main');
         })
         .catch(() => {
-            this.setState({
-                status: "error"
-            });
+            setStatus("error");
         });
     }
 
-    render(){
-        return (
-            <div>
-                {this.state.status === "error" && <ColorText color="red" text="Error! Incorrect data :("/>}
-                <LabelInput 
-                    name="Username" 
-                    type="text"
-                    getValue={this.onChangeLogin}
-                />
-                <br/>
-                <LabelInput 
-                    name="Password"
-                    type="password"
-                    getValue={this.onChangePassword}
-                />
-                <br/>
-                <Button
-                    name="Sign in"
-                    onClick={this.onClickLogin}
-                />
-                {this.state.status === "ok" && <Navigate to="/main" replace={true} />}
-            </div>
-        )
-    }
+    return (
+        <div>
+        {status === "error" && <ColorText color="red" text="Error! Incorrect data :("/>}
+        <LabelInput 
+            name="Username" 
+            type="text"
+            getValue={handleLogin}
+        />
+        <br/>
+        <LabelInput 
+            name="Password"
+            type="password"
+            getValue={handlePassword}
+        />
+        <br/>
+        <Button
+            name="Sign in"
+            onClick={handleButton}
+        />
+    </div>
+    )
 }
 
 export default Login;

@@ -1,43 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 import LabelInput from "./LabelInput";
 
-class SearchBar extends React.Component {
+function SearchBar(props){
 
-    constructor(props){
-        super(props);
-        this.state = {
-            query: ""
-        }
-        this.onChangeQuery = this.onChangeQuery.bind(this);
-        this.onClickSearch = this.onClickSearch.bind(this);
+    const [query, setQuery] = useState('');
+
+    function handleLabelInput(query){
+        setQuery(query);
     }
 
-    onChangeQuery(query){
-        this.setState({
-            query: query
-        });
+    function handleButton(){
+        props.getValue(query);
     }
 
-    onClickSearch(){
-        this.props.getValue(this.state.query);
-    }
-
-    render(){
-        return (
-            <div>
-                <LabelInput
-                    name="Enter the name of the anime"
-                    type="text"
-                    getValue={this.onChangeQuery}
-                />
-                <Button
-                    name="Search"
-                    onClick={this.onClickSearch}
-                />
-            </div>
-        )
-    }
+    return (
+        <div>
+            <LabelInput
+                name="Enter the name of the anime"
+                type="text"
+                getValue={handleLabelInput}
+            />
+            <Button
+                name="Search"
+                onClick={handleButton}
+            />
+        </div>
+    )
 }
 
 export default SearchBar;

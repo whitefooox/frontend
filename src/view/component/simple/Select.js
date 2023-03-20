@@ -1,27 +1,22 @@
 import React from "react";
 
-class Select extends React.Component {
+function Select(props){
 
-    constructor(props){
-        super(props);
-        this.onChange = this.onChange.bind(this);
+    function handleSelect(e){
+        props.getValue(e.target.value);
     }
 
-    onChange(e){
-        this.props.getValue(e.target.value);
+    const options = []
+
+    for(const element in props.data){
+        options.push(<option value={element} key={element}>{element}</option>)
     }
 
-    render(){
-        const options = []
-        for(const element in this.props.data){
-            options.push(<option value={element} key={element}>{element}</option>)
-        }
-        return (
-            <select onChange={this.onChange}>
-                {options}
-            </select>
-        )
-    }
+    return (
+        <select onChange={handleSelect}>
+            {options}
+        </select>
+    )
 }
 
 export default Select;
