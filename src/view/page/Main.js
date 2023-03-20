@@ -3,6 +3,7 @@ import AnimeServiceFactory from "../../model/services/AnimeServices";
 import Info from "../component/func/Info";
 import Player from "../component/func/Player";
 import SearchBar from "../component/simple/SearchBar";
+import AnimeContext from "../context/AnimeContext";
 
 function Main(props){
 
@@ -25,18 +26,18 @@ function Main(props){
     }
 
     return (
+        <AnimeContext.Provider value= {{anime: anime}} >
         <div style={{textAlign: "center"}}>
             <SearchBar
                 getValue={handleSearch}
             />
             <Info
                 status={status}
-                name={status === "ok" ? anime.name : null}
-                img={status === "ok" ? anime.image : null}
             />
             <br/>
-            {status === "ok" && <Player anime={anime}/>}
+            {status === "ok" && <Player/>}
         </div>
+        </AnimeContext.Provider>
     )
 }
 

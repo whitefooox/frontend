@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../simple/Button";
 import Select from "../simple/Select";
 import AnimeServiceFactory from "../../../model/services/AnimeServices";
+import AnimeContext from "../../context/AnimeContext";
 
 function Player(props){
 
@@ -10,10 +11,12 @@ function Player(props){
     const [status, setStatus] = useState(null);
     const [source, setSource] = useState(null);
 
+    const {anime} = useContext(AnimeContext);
+
     const animeService = AnimeServiceFactory.createInstance();
 
     function hundleButton(){
-        animeService.getSource(props.anime.data[season][seria])
+        animeService.getSource(anime.data[season][seria])
         .then((url) => {
            setSource(url);
            setStatus('ok');
@@ -26,11 +29,11 @@ function Player(props){
     return (
         <>
             <Select 
-                data={props.anime.data}
+                data={anime.data}
                 getValue={(targetSeason) => {setSeason(targetSeason)}}
             />
             <Select 
-                data={props.anime.data[season]}
+                data={anime.data[season]}
                 getValue={(targetSeria) => {setSeria(targetSeria)}}
             />
             <Button
