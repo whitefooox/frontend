@@ -25,6 +25,7 @@ function Registration(props){
         .then(() => {
             console.log("ok");
             setStatus('ok');
+            navigate('/main');
         })
         .catch(() => {
             console.log('error');
@@ -32,9 +33,7 @@ function Registration(props){
         });
     }
 
-    if(status === "ok") {
-        navigate('/main');
-    } else return (
+    return (
         <div>
             {status === "error" && <ColorText color="red" text="Error! Incorrect data :("/>}
             <LabelInput
