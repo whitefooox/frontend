@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../simple/Button";
 import Select from "../simple/Select";
 import AnimeServiceFactory from "../../../model/services/AnimeServices";
@@ -13,9 +13,8 @@ function Player(props){
     const [status, setStatus] = useState(null);
     const [source, setSource] = useState(null);
 
-    const animeService = AnimeServiceFactory.createInstance();
-
     function hundleButton(){
+        const animeService = AnimeServiceFactory.createInstance();
         animeService.getSource(anime.data[season][seria])
         .then((url) => {
            setSource(url);

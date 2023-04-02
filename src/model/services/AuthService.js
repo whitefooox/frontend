@@ -11,7 +11,7 @@ class Auth {
             body: JSON.stringify(user)
         });
         if(response.ok){
-            response.json().then((token) => {
+            await response.json().then((token) => {
                 this.#save(user.login, token);
             });
             return;
@@ -21,6 +21,7 @@ class Auth {
     }
 
     async signUp(user){
+        console.log(user);
         const response = await fetch(API_URL + "reg", {
             method: "POST",
             headers:{
@@ -29,9 +30,10 @@ class Auth {
             body: JSON.stringify(user)
         });
         if(response.ok){
-            response.json().then((token) => {
+            await response.json().then((token) => {
                 this.#save(user.login, token);
             });
+            console.log(this.getLogin());
             return;
         } else {
             return Promise.reject();

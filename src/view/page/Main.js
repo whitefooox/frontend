@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AnimeServiceFactory from "../../model/services/AnimeServices";
+import Chat from "../component/func/Chat";
 import Info from "../component/func/Info";
 import Player from "../component/func/Player";
 import SearchBar from "../component/simple/SearchBar";
@@ -27,16 +28,23 @@ function Main(props){
 
     return (
         <AnimeContext.Provider value= {{anime: anime}} >
-        <div style={{textAlign: "center"}}>
-            <SearchBar
-                getValue={handleSearch}
-            />
-            <Info
-                status={status}
-            />
-            <br/>
-            {status === "ok" && <Player/>}
-        </div>
+            <div style={{display: "block"}}>
+                <div style={{float: "left"}}>
+                    <div style={{textAlign: "center"}}>
+                        <SearchBar
+                            getValue={handleSearch}
+                        />
+                        <Info
+                            status={status}
+                        />
+                        <br/>
+                        {status === "ok" && <Player/>}
+                    </div>
+                </div>
+                <div style={{float: "right"}}>
+                    <Chat></Chat>
+                </div>
+            </div>
         </AnimeContext.Provider>
     )
 }
