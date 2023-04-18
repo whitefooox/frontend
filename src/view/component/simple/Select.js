@@ -6,7 +6,7 @@ function Select(props){
         props.getValue(e.target.value);
     }
 
-    const options = []
+    const options = [];
 
     for(const element in props.data){
         options.push(<option value={element} key={element}>{element}</option>)

@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AnimeServiceFactory from "../../model/services/AnimeServices";
 import Chat from "../component/func/Chat";
 import Info from "../component/func/Info";
 import Player from "../component/func/Player";
 import SearchBar from "../component/simple/SearchBar";
 import AnimeContext from "../context/AnimeContext";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../redux/actions";
 
 function Main(props){
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [status, setStatus] = useState('');
     const [anime, setAnime] = useState(null);
+
+    const isAuth = useSelector(state => state.isAuth);
+
+    useEffect(() => {
+        if(!isAuth){
+            navigate('/auth');
+        }
+    }, [isAuth]);
 
     const animeService = AnimeServiceFactory.createInstance();
     animeService.subscribe((anime) => {
@@ -42,6 +56,7 @@ function Main(props){
                     </div>
                 </div>
                 <div style={{float: "right"}}>
+                <button onClick={() => dispatch(logoutUser())}>Logout</button>
                     <Chat></Chat>
                 </div>
             </div>

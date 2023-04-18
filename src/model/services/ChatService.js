@@ -7,7 +7,6 @@ const API_URL = "ws://localhost:8080/web/chat";
 class ChatService extends Store {
     sendMessage(text){
         const message = new Message();
-        message.username = this.username;
         message.text = text;
         this.connection.send(JSON.stringify(message));
     }

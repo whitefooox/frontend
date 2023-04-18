@@ -40,6 +40,11 @@ class Auth {
         }
     }
 
+    logout(){
+        localStorage.removeItem('login');
+        localStorage.removeItem('token');
+    }
+
     #save(login, token){
         localStorage.setItem('login', login);
         localStorage.setItem('token', token);

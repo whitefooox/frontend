@@ -1,41 +1,32 @@
-import React, { useState } from "react";
-import User from "../../../model/dto/User";
-import AuthServiceFactory from "../../../model/services/AuthService";
+import React, { useState, useEffect } from "react";
 import Button from "../simple/Button";
 import LabelInput from "../../component/simple/LabelInput";
-import ColorText from "../../component/simple/ColorText";
+import Text from "../../component/simple/Text";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { registrationUser } from "../../redux/actions";
 
 function Registration(props){
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [status, setStatus] = useState('');
 
-    function handleButton(){
-        const authService = AuthServiceFactory.createInstance();
-        const user = new User();
-        user.login = login;
-        user.password = password;
-        user.email = email;
-        authService.signUp(user)
-        .then(() => {
-            console.log("ok");
-            setStatus('ok');
+    const isAuth = useSelector(state => state.isAuth);
+    const isRegistrationStatus = useSelector(state => state.isRegistrationStatus);
+
+    useEffect(() => {
+        if(isAuth){
             navigate('/main');
-        })
-        .catch(() => {
-            console.log('error');
-            setStatus('error');
-        });
-    }
+        }
+    }, [isAuth]);
 
     return (
         <div>
-            {status === "error" && <ColorText color="red" text="Error! Incorrect data :("/>}
+            {isRegistrationStatus === false && <Text color="red" text="Error! Incorrect data :("/>}
             <LabelInput
                 name="Login"
                 type="text"
@@ -56,7 +47,7 @@ function Registration(props){
             <br/>
             <Button
                 name="Sign up"
-                onClick={handleButton}
+                onClick={() => dispatch(registrationUser(login, password, email))}
             />
         </div>
     )

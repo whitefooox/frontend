@@ -64,7 +64,8 @@ class Chat extends React.Component {
                             
                         }}>
                             <span style={{
-                                wordWrap: "break-word"
+                                wordWrap: "break-word",
+                                backgroundColor: "#00FFFF"
                             }}>&nbsp;{message.text}</span>
                         </div>
                     ))}
@@ -75,21 +76,5 @@ class Chat extends React.Component {
         )
     }
 }
-/*
-{this.state.messages.map((message, index) => (
-                        <div key={index} style={{
-                            marginBottom: "10px",
-                            
-                        }}>
-                            <span style={{
-                                color: "blue",
-                                backgroundColor: "#bce9f7",
-                            }}>{"[   " + message.username + "   ]"}</span>
-                            <span style={{
-                                wordWrap: "break-word"
-                            }}>&nbsp;{message.text}</span>
-                        </div>
-                    ))}
-*/
 
 export default Chat;

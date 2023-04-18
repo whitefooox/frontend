@@ -1,60 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../simple/Button";
 import LabelInput from "../simple/LabelInput";
-import AuthServiceFactory from "../../../model/services/AuthService";
-import User from "../../../model/dto/User";
 import { useNavigate } from "react-router-dom";
-import ColorText from "../simple/ColorText";
+import Text from "../simple/Text";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../redux/actions";
 
 function Login(props){
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const [status, setStatus] = useState('');
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
-    function handleLogin(login){
-        setLogin(login);
-    }
+    const isAuth = useSelector(state => state.isAuth);
+    const isLoginStatus = useSelector(state => state.isLoginStatus);
 
-    function handlePassword(password){
-        setPassword(password);
-    }
-
-    function handleButton(){
-        const authService = AuthServiceFactory.createInstance();
-        const user = new User();
-        user.login = login;
-        user.password = password;
-        authService.signIn(user)
-        .then(() => {
-            setStatus("ok");
+    useEffect(() => {
+        if(isAuth){
             navigate('/main');
-        })
-        .catch(() => {
-            setStatus("error");
-        });
-    }
+        }
+    }, [isAuth]);
 
     return (
         <div>
-        {status === "error" && <ColorText color="red" text="Error! Incorrect data :("/>}
+        {isLoginStatus === false && <><Text color="red" text="Error! Incorrect data :("/><br/></>}
         <LabelInput 
             name="Username" 
             type="text"
-            getValue={handleLogin}
+            getValue={(value) => setLogin(value)}
         />
         <br/>
         <LabelInput 
             name="Password"
             type="password"
-            getValue={handlePassword}
+            getValue={(value) => setPassword(value)}
         />
         <br/>
         <Button
             name="Sign in"
-            onClick={handleButton}
+            onClick={() => dispatch(loginUser(login, password))}
         />
     </div>
     )
