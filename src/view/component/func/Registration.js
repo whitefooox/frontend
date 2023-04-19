@@ -3,20 +3,19 @@ import Button from "../simple/Button";
 import LabelInput from "../../component/simple/LabelInput";
 import Text from "../../component/simple/Text";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { registrationUser } from "../../redux/actions";
+import { useIsAuthListener, useIsRegistrationStatusListener, useRegistrationDispatcher } from "../../../state/redux/api";
 
 function Registration(props){
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
 
-    const isAuth = useSelector(state => state.isAuth);
-    const isRegistrationStatus = useSelector(state => state.isRegistrationStatus);
+    const isAuth = useIsAuthListener();
+    const isRegistrationStatus = useIsRegistrationStatusListener();
+    const useRegistration = useRegistrationDispatcher();
 
     useEffect(() => {
         if(isAuth){
@@ -47,7 +46,7 @@ function Registration(props){
             <br/>
             <Button
                 name="Sign up"
-                onClick={() => dispatch(registrationUser(login, password, email))}
+                onClick={() => useRegistration(login, password, email)}
             />
         </div>
     )

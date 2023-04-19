@@ -5,19 +5,18 @@ import Info from "../component/func/Info";
 import Player from "../component/func/Player";
 import SearchBar from "../component/simple/SearchBar";
 import AnimeContext from "../context/AnimeContext";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../redux/actions";
+import { useIsAuthListener, useLogoutDispatcher } from "../../state/redux/api";
 
 function Main(props){
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const [status, setStatus] = useState('');
     const [anime, setAnime] = useState(null);
 
-    const isAuth = useSelector(state => state.isAuth);
+    const isAuth = useIsAuthListener();
+    const useLogout = useLogoutDispatcher();
 
     useEffect(() => {
         if(!isAuth){
@@ -41,7 +40,7 @@ function Main(props){
     }
 
     return (
-        <AnimeContext.Provider value= {{anime: anime}} >
+        <AnimeContext.Provider value = {{anime: anime}} >
             <div style={{display: "block"}}>
                 <div style={{float: "left"}}>
                     <div style={{textAlign: "center"}}>
@@ -56,7 +55,7 @@ function Main(props){
                     </div>
                 </div>
                 <div style={{float: "right"}}>
-                <button onClick={() => dispatch(logoutUser())}>Logout</button>
+                <button onClick={() => useLogout()}>Logout</button>
                     <Chat></Chat>
                 </div>
             </div>

@@ -3,19 +3,18 @@ import Button from "../simple/Button";
 import LabelInput from "../simple/LabelInput";
 import { useNavigate } from "react-router-dom";
 import Text from "../simple/Text";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../redux/actions";
+import { useIsAuthListener, useIsLoginStatusListener, useLoginDispatcher } from '../../../state/redux/api';
 
 function Login(props){
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
-    const isAuth = useSelector(state => state.isAuth);
-    const isLoginStatus = useSelector(state => state.isLoginStatus);
+    const isAuth = useIsAuthListener();
+    const isLoginStatus = useIsLoginStatusListener();
+    const loginDispatcher = useLoginDispatcher();
 
     useEffect(() => {
         if(isAuth){
@@ -40,7 +39,7 @@ function Login(props){
         <br/>
         <Button
             name="Sign in"
-            onClick={() => dispatch(loginUser(login, password))}
+            onClick={() => loginDispatcher(login, password)}
         />
     </div>
     )

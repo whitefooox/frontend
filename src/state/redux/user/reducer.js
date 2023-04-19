@@ -1,4 +1,3 @@
-import AuthServiceFactory from '../../model/services/AuthService';
 import * as actions from './actions';
 
 const initialState = {

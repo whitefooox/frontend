@@ -1,5 +1,5 @@
-import AuthServiceFactory from "../../model/services/AuthService";
-import {createUserLogin, createUserReg} from '../../model/dto/User';
+import AuthServiceFactory from "../../../model/services/AuthService";
+import { createUserLogin, createUserReg } from "../../../model/dto/User";
 
 export const LOGIN_USER = 'LOGIN_USER';
 export const REGISTRATION_USER = 'REGISTRATION_USER';
