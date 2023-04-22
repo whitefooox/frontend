@@ -2,7 +2,8 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { loginUser, logoutUser, registrationUser } from './user/actions';
-import store from './user/store';
+import store from './store';
+import { searchAnime, setAnime } from './anime/actions';
 
 function buildProvider(){
     return (props)=> {
@@ -15,15 +16,15 @@ function buildProvider(){
 }
 
 function useIsAuthListener(){
-    return useSelector((state) => state.isAuth);   
+    return useSelector((state) => state.user.isAuth);   
 }
 
 function useIsLoginStatusListener(){
-    return useSelector((state) => state.isLoginStatus);
+    return useSelector((state) => state.user.isLoginStatus);
 }
 
 function useIsRegistrationStatusListener(){
-    return useSelector((state) => state.isRegistrationStatus);
+    return useSelector((state) => state.user.isRegistrationStatus);
 }
 
 function useLoginDispatcher(){
@@ -41,4 +42,25 @@ function useLogoutDispatcher(){
     return () => dispatch(logoutUser());
 }
 
-export {buildProvider, useIsAuthListener, useIsLoginStatusListener, useIsRegistrationStatusListener, useLoginDispatcher, useLogoutDispatcher, useRegistrationDispatcher};
+function useAnimeListener(){
+    return useSelector((state) => state.anime.anime);
+}
+
+function useSetAnimeDispatcher(){
+    const dispatch = useDispatch();
+    return (anime) => dispatch(setAnime(anime));
+}
+
+function useSearchStatusListener(){
+    return useSelector((state) => state.anime.searchStatus);
+}
+
+function useSearchAnimeDispatcher(){
+    const dispatch = useDispatch();
+    return (name) => dispatch(searchAnime(name));
+}
+
+export {buildProvider, useIsAuthListener, useIsLoginStatusListener, 
+        useIsRegistrationStatusListener, useLoginDispatcher, useLogoutDispatcher, useRegistrationDispatcher,
+        useAnimeListener, useSetAnimeDispatcher,
+        useSearchStatusListener, useSearchAnimeDispatcher};

@@ -1,11 +1,9 @@
 import AuthServiceFactory from "./AuthService";
-import Store from "./Store.js";
 
 const API_URL = "http://localhost:8080/web/api/anime/";
 
-class Anime extends Store {
+class Anime {
   constructor() {
-    super();
     this.authService = AuthServiceFactory.createInstance();
   }
 
@@ -19,11 +17,10 @@ class Anime extends Store {
       },
     });
     if(response.ok){
-        response.json().then((anime) => {
-            this._emit(anime);
-        });
+      return response.json();
     } else {
-        console.log('ошибка при получении данных', response.status);
+      console.log('ошибка при получении данных', response.status);
+      return null;
     }
   }
 

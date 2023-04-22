@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "../simple/Button";
 import Select from "../simple/Select";
 import AnimeServiceFactory from "../../../model/services/AnimeServices";
-import AnimeContext from "../../context/AnimeContext";
+import { useAnimeListener } from "../../../state/redux/api";
 
 function Player(props){
 
-    const {anime} = useContext(AnimeContext);
+    const anime = useAnimeListener();
     const [season, setSeason] = useState(Object.keys(anime.data)[0]);
     const [seria, setSeria] = useState(Object.keys(anime.data[season])[0]);
     const [status, setStatus] = useState(null);

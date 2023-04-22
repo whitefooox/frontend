@@ -1,10 +1,10 @@
-import {useContext, React} from "react";
+import {React} from "react";
 import Text from "../simple/Text";
-import AnimeContext from "../../context/AnimeContext";
+import { useAnimeListener } from "../../../state/redux/api";
 
 function Info(props){
 
-    const {anime} = useContext(AnimeContext);
+    const anime = useAnimeListener();
 
     if(props.status === "search"){
         return (

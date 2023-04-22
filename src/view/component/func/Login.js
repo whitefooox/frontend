@@ -20,7 +20,7 @@ function Login(props){
         if(isAuth){
             navigate('/main');
         }
-    }, [isAuth]);
+    }, [isAuth, navigate]);
 
     return (
         <div>

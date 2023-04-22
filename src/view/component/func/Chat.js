@@ -42,7 +42,7 @@ class Chat extends React.Component {
                 <p>Chat</p>
                 <div style={{
                     height: "300px",
-                    overflowY: "scroll",
+                    overflowY: "scroll"
                 }}>
                     {this.state.messages.map((message, index) => (
                         message.type === "user" ?
@@ -58,7 +58,20 @@ class Chat extends React.Component {
                                 wordWrap: "break-word"
                             }}>&nbsp;{message.text}</span>
                         </div>
-                        :
+                        : 
+                        
+                        message.type === "recommended" ?
+                        <div key={index} style={{
+                            marginBottom: "10px",
+                            
+                        }}>
+                            <span style={{
+                                wordWrap: "break-word",
+                                backgroundColor: "#FFF8DC"
+                            }}>&nbsp;{"🔹" + message.text + "🔹"}</span>
+                        </div>
+                        : 
+                        
                         <div key={index} style={{
                             marginBottom: "10px",
                             
