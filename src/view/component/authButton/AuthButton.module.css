@@ -1,0 +1,15 @@
+.button__container {
+    display: flex;
+    justify-content: center;
+}
+
+.button__container button {
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    background: #31364c;
+    border: 1px solid #31364c;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+}

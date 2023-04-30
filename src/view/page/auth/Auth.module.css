@@ -1,0 +1,12 @@
+.auth__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    height: 100vh;
+    /*background-color: #f8f9fd;*/
+    background-image: url('../../../../public/wp8269998.png');
+    background-repeat: no-repeat;
+    background-size:cover;
+}

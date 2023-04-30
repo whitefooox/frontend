@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Chat from "../component/func/Chat";
+import NewChat from "../component/func/NewChat";
 import Info from "../component/func/Info";
 import Player from "../component/func/Player";
 import SearchBar from "../component/simple/SearchBar";

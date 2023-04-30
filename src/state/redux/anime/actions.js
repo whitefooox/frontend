@@ -3,6 +3,7 @@ import AnimeServiceFactory from "../../../model/services/AnimeServices";
 export const SET_ANIME = 'SET_ANIME';
 export const SEARCH_ANIME = 'SEARCH_ANIME';
 export const SET_SEARCH_STATUS = 'SET_SEARCH_STATUS';
+export const GET_SOURCE_VIDEO = 'GET_SOURCE_VIDEO';
 
 const createState = (type, payload) => {
     return {
@@ -27,6 +28,19 @@ export const searchAnime = (name) => {
         })
         .catch(() => {
             dispatch(createState(SEARCH_ANIME, null));
+        })
+    }
+}
+
+export const getSource = (url) => {
+    return dispatch => {
+        const animeService = AnimeServiceFactory.createInstance();
+        animeService.getSource(url)
+        .then((url) => {
+            dispatch(createState(GET_SOURCE_VIDEO, url));
+        })
+        .catch(() => {
+            dispatch(createState(GET_SOURCE_VIDEO, null));
         })
     }
 }

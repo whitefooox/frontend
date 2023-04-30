@@ -1,28 +1,17 @@
 import React, { useState } from "react";
-import Button from "../simple/Button";
+import Button from "../simple/button/Button";
 import Select from "../simple/Select";
-import AnimeServiceFactory from "../../../model/services/AnimeServices";
-import { useAnimeListener } from "../../../state/redux/api";
+import { useAnimeListener, useGetSourceDispatcher, useSourceListener, useSourceStatusListener } from "../../../state/redux/api";
 
 function Player(props){
 
     const anime = useAnimeListener();
     const [season, setSeason] = useState(Object.keys(anime.data)[0]);
     const [seria, setSeria] = useState(Object.keys(anime.data[season])[0]);
-    const [status, setStatus] = useState(null);
-    const [source, setSource] = useState(null);
 
-    function hundleButton(){
-        const animeService = AnimeServiceFactory.createInstance();
-        animeService.getSource(anime.data[season][seria])
-        .then((url) => {
-           setSource(url);
-           setStatus('ok');
-        })
-        .catch(() => {
-            setStatus('error');
-        })
-    }
+    const status = useSourceStatusListener();
+    const source = useSourceListener();
+    const getSource = useGetSourceDispatcher();
 
     return (
         <>
@@ -39,7 +28,7 @@ function Player(props){
             />
             <Button
                 name="Play"
-                onClick={hundleButton}
+                onClick={() => getSource(anime.data[season][seria])}
             />
             <br/>
             {status === "ok" && <iframe title="This is a unique title" allowFullScreen width="720" height="405" src={source}></iframe>}

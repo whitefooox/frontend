@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { loginUser, logoutUser, registrationUser } from './user/actions';
 import store from './store';
-import { searchAnime, setAnime } from './anime/actions';
+import { getSource, searchAnime, setAnime } from './anime/actions';
+import { connectToChat } from './chat/actions';
 
 function buildProvider(){
     return (props)=> {
@@ -60,7 +61,27 @@ function useSearchAnimeDispatcher(){
     return (name) => dispatch(searchAnime(name));
 }
 
+function useSourceListener(){
+    return useSelector((state) => state.anime.source);
+}
+
+function useGetSourceDispatcher(){
+    const dispatch = useDispatch();
+    return (url) => dispatch(getSource(url));
+}
+
+function useSourceStatusListener(){
+    return useSelector((state) => state.anime.getSourceStatus)
+}
+
+function useConnectToChat(){
+    const dispatch = useDispatch();
+    return (callback) => dispatch(connectToChat(callback));
+}
+
 export {buildProvider, useIsAuthListener, useIsLoginStatusListener, 
         useIsRegistrationStatusListener, useLoginDispatcher, useLogoutDispatcher, useRegistrationDispatcher,
         useAnimeListener, useSetAnimeDispatcher,
-        useSearchStatusListener, useSearchAnimeDispatcher};
+        useSearchStatusListener, useSearchAnimeDispatcher,
+        useSourceListener, useGetSourceDispatcher, useSourceStatusListener,
+    useConnectToChat};

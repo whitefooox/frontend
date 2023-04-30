@@ -1,7 +1,8 @@
 import * as actions from './actions';
 
 const initialState = {
-    searchStatus: ""
+    searchStatus: "",
+    getSourceStatus: ""
 }
 
 export default function reducerAnime(state = initialState, action){
@@ -15,12 +16,19 @@ export default function reducerAnime(state = initialState, action){
             return {
                 ...state,
                 anime: action.payload,
-                searchStatus: action.payload === null ? "error" : "ok"
+                searchStatus: action.payload === null ? "error" : "ok",
+                getSourceStatus: ""
             }
         case actions.SET_SEARCH_STATUS:
             return {
                 ...state,
                 searchStatus: action.payload
+            }
+        case actions.GET_SOURCE_VIDEO:
+            return {
+                ...state,
+                source: action.payload,
+                getSourceStatus: action.payload === null ? "error" : "ok"
             }
        default:
            return state;

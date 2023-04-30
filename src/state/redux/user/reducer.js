@@ -20,8 +20,7 @@ export default function reducerUser(state = initialState, action){
             }
         case actions.LOGOUT_USER:
             return {
-                ...state,
-                isAuth: action.payload
+                isAuth: false
             }
         default:
             return state;

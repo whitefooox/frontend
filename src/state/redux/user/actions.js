@@ -43,6 +43,6 @@ export const logoutUser = () => {
     return dispatch => {
         const authService = AuthServiceFactory.createInstance();
         authService.logout();
-        dispatch(createState(LOGOUT_USER, false));
+        dispatch(createState(LOGOUT_USER));
     }
 }
