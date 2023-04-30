@@ -32,9 +32,7 @@ function Main(props){
                 <SearchBar
                     getValue={(name) => searchAnime(name)}
                 />
-                <Info
-                    status={searchStatus}
-                />
+                <Info/>
                 <br/>
                 {searchStatus === "ok" && <Player/>}
             </div>

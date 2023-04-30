@@ -16,9 +16,14 @@ export const searchAnime = (name) => {
         const animeService = AnimeServiceFactory.createInstance();
         animeService.search(name)
         .then((anime) => {
-            dispatch(createState(SEARCH_ANIME, {status: "ok", anime: anime}));
+            if(anime === null){
+                dispatch(createState(SEARCH_ANIME, {status: "error"}));
+            } else {
+                dispatch(createState(SEARCH_ANIME, {status: "ok", anime: anime}));
+            }
         })
         .catch(() => {
+            console.log("error");
             dispatch(createState(SEARCH_ANIME, {status: "error"}));
         })
     }
@@ -30,7 +35,11 @@ export const getSource = (url) => {
         const animeService = AnimeServiceFactory.createInstance();
         animeService.getSource(url)
         .then((url) => {
-            dispatch(createState(GET_SOURCE, {status: "ok", source: url}));
+            if(url === null){
+                dispatch(createState(GET_SOURCE, {status: "error"}));
+            } else {
+                dispatch(createState(GET_SOURCE, {status: "ok", source: url}));
+            }
         })
         .catch(() => {
             dispatch(createState(GET_SOURCE, {status: "error"}));

@@ -1,16 +1,17 @@
 import {React} from "react";
 import Text from "../simple/Text";
-import { useListenerAnime } from "../../../state/redux/api/apiAnime";
+import { useListenerAnime, useListenerSearchStatus } from "../../../state/redux/api/apiAnime";
 
 function Info(props){
 
     const anime = useListenerAnime();
+    const statusSearch = useListenerSearchStatus();
 
-    if(props.status === "search"){
+    if(statusSearch === "search"){
         return (
             <Text color="black" text="Wait, the search is underway 🔎"/>
         )
-    } else if (props.status === "ok"){
+    } else if (statusSearch === "ok"){
         return (
             <>
                 <Text color="green" text="Found ✅"/>
@@ -18,7 +19,7 @@ function Info(props){
                 <img src={anime.image} alt=""/>
             </>
         )
-    } else if(props.status === "error"){
+    } else if(statusSearch === "error"){
         return (
             <Text color="red" text="Not found ❌"/>
         )
