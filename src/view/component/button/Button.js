@@ -1,6 +1,6 @@
-import classes from './AuthButton.module.css'
+import classes from './Button.module.css'
 
-function AuthButton(props){
+function Button(props){
     return (
         <div className={classes.button__container}>
             <button onClick={props.onClick}>{props.name}</button>
@@ -8,4 +8,4 @@ function AuthButton(props){
     )
 }
 
-export default AuthButton;
+export default Button;

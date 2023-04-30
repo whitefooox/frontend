@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Login from "../../component/login/Login";
 import classes from './Auth.module.css';
-import AuthButton from "../../component/authButton/AuthButton";
+import Button from "../../component/button/Button";
 import Registration from "../../component/registration/Registration";
 
 function Auth(props){
@@ -11,10 +11,10 @@ function Auth(props){
     return (
         <div className={classes.auth__wrapper}>
             {isRegistration ? <Registration/> : <Login/>}
-            <AuthButton
+            <Button
                 name={isRegistration ? "Already have an account?" : "Create an account"}
                 onClick={() => {setIsRegistration(!isRegistration)}}
-            ></AuthButton>
+            ></Button>
         </div>
     )
 }

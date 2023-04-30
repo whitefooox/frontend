@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useIsAuthListener, useIsLoginStatusListener, useLoginDispatcher } from "../../../state/redux/api";
-import AuthInput from "../authInput/AuthInput";
-import AuthButton from "../authButton/AuthButton";
+import LabelInput from "../labelInput/LabelInput";
+import Button from "../button/Button";
 import classes from './Login.module.css';
 import ErrorMessage from "../errorMessage/ErrorMessage";
+import { useListenerIsAuth, useListenerIsLoginStatus, useLogin } from "../../../state/redux/api/apiUser";
 
 function Login(props){
 
@@ -13,9 +13,9 @@ function Login(props){
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
 
-    const isAuth = useIsAuthListener();
-    const loginUse = useLoginDispatcher();
-    const isLoginStatus = useIsLoginStatusListener();
+    const isAuth = useListenerIsAuth();
+    const isLoginStatus = useListenerIsLoginStatus();
+    const loginUse = useLogin();
 
     useEffect(() => {
         if(isAuth){
@@ -25,21 +25,21 @@ function Login(props){
 
     return (
         <div className={classes.login__form}>
-            <AuthInput
+            <LabelInput
                 title="Login"
                 type="text"
                 getValue={setLogin}
-            ></AuthInput>
-            <AuthInput
+            ></LabelInput>
+            <LabelInput
                 title="Password"
                 type="password"
                 getValue={setPassword}
             >
-            </AuthInput>
-            <AuthButton
+            </LabelInput>
+            <Button
                 name="ok"
                 onClick={() => loginUse(login, password)}
-            ></AuthButton>
+            ></Button>
             {isLoginStatus === false && <ErrorMessage text="Error! Incorrect data :("></ErrorMessage>}
         </div>
     )

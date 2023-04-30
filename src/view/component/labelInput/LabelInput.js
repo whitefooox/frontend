@@ -1,4 +1,4 @@
-import classes from './AuthInput.module.css'
+import classes from './LabelInput.module.css'
 
 function AuthInput(props){
     return (

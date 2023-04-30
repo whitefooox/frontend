@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import Chat from "../component/func/Chat";
-import NewChat from "../component/func/NewChat";
 import Info from "../component/func/Info";
 import Player from "../component/func/Player";
 import SearchBar from "../component/simple/SearchBar";
 import { useNavigate } from "react-router-dom";
-import { useIsAuthListener, useLogoutDispatcher, useSearchAnimeDispatcher, useSearchStatusListener } from "../../state/redux/api";
+import { useListenerIsAuth, useLogout } from "../../state/redux/api/apiUser";
+import { useListenerSearchStatus, useSearchAnime } from "../../state/redux/api/apiAnime";
 
 function Main(props){
 
     const navigate = useNavigate();
 
-    const searchStatus = useSearchStatusListener();
-    const isAuth = useIsAuthListener();
-    const useLogout = useLogoutDispatcher();
-    const searchAnime = useSearchAnimeDispatcher();
+    const isAuth = useListenerIsAuth();
+    const searchStatus = useListenerSearchStatus();
+    const logout = useLogout();
+    const searchAnime = useSearchAnime();
 
     useEffect(() => {
         if(!isAuth){
@@ -25,7 +25,7 @@ function Main(props){
     return (
         <>
             <div style={{float: "right"}}>
-                <button onClick={useLogout}>Logout</button>
+                <button onClick={logout}>Logout</button>
                     <Chat></Chat>
             </div>
             <div style={{textAlign: "center"}}>

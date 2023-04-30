@@ -1,10 +1,10 @@
 import {React} from "react";
 import Text from "../simple/Text";
-import { useAnimeListener } from "../../../state/redux/api";
+import { useListenerAnime } from "../../../state/redux/api/apiAnime";
 
 function Info(props){
 
-    const anime = useAnimeListener();
+    const anime = useListenerAnime();
 
     if(props.status === "search"){
         return (

@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import Button from "../simple/button/Button";
 import Select from "../simple/Select";
-import { useAnimeListener, useGetSourceDispatcher, useSourceListener, useSourceStatusListener } from "../../../state/redux/api";
+import { useGetSource, useListenerAnime, useListenerSource, useListenerSourceStatus } from "../../../state/redux/api/apiAnime";
 
 function Player(props){
 
-    const anime = useAnimeListener();
+    const anime = useListenerAnime();
     const [season, setSeason] = useState(Object.keys(anime.data)[0]);
     const [seria, setSeria] = useState(Object.keys(anime.data[season])[0]);
 
-    const status = useSourceStatusListener();
-    const source = useSourceListener();
-    const getSource = useGetSourceDispatcher();
+    const status = useListenerSourceStatus();
+    const source = useListenerSource();
+    const getSource = useGetSource();
 
     return (
         <>

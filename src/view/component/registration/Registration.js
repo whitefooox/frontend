@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import AuthInput from "../authInput/AuthInput";
-import AuthButton from "../authButton/AuthButton";
+import LabelInput from "../labelInput/LabelInput";
+import Button from "../button/Button";
 import classes from './Registration.module.css';
-import { useIsAuthListener, useIsRegistrationStatusListener, useRegistrationDispatcher } from "../../../state/redux/api";
 import ErrorMessage from "../errorMessage/ErrorMessage";
+import { useListenerIsAuth, useListenerIsRegistrationStatus, useRegistration } from "../../../state/redux/api/apiUser";
 
 function Registration(props){
 
@@ -14,9 +14,9 @@ function Registration(props){
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
 
-    const isAuth = useIsAuthListener();
-    const registrationUse = useRegistrationDispatcher();
-    const isRegistrationStatus = useIsRegistrationStatusListener();
+    const isAuth = useListenerIsAuth();
+    const isRegistrationStatus = useListenerIsRegistrationStatus();
+    const registrationUse = useRegistration();
 
     useEffect(() => {
         if(isAuth){
@@ -26,26 +26,26 @@ function Registration(props){
 
     return (
         <div className={classes.registration__form}>
-            <AuthInput
+            <LabelInput
                 title="Login"
                 type="text"
                 getValue={setLogin}
-            ></AuthInput>
-            <AuthInput
+            ></LabelInput>
+            <LabelInput
                 title="Password"
                 type="password"
                 getValue={setPassword}
             >
-            </AuthInput>
-            <AuthInput
+            </LabelInput>
+            <LabelInput
                 title="Email"
                 type="email"
                 getValue={setEmail}
-            ></AuthInput>
-            <AuthButton
+            ></LabelInput>
+            <Button
                 name="ok"
                 onClick={() => registrationUse(login, password, email)}
-            ></AuthButton>
+            ></Button>
             {isRegistrationStatus === false && <ErrorMessage text="Error! Incorrect data :("></ErrorMessage>}
         </div>
     )

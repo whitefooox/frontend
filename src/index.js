@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Auth from './view/page/auth/Auth';
 import Main from './view/page/Main';
-import { buildProvider } from './state/redux/api';
+import { buildProvider } from './state/redux/api/apiRoot';
 import App from './App';
 import Login from './view/component/login/Login';
 
