@@ -1,6 +1,5 @@
 import AuthServiceFactory from "./AuthService";
-
-const API_URL = "http://localhost:8080/web/api/anime/";
+import { ANIME_API } from "../../config";
 
 class Anime {
   constructor() {
@@ -8,7 +7,7 @@ class Anime {
   }
 
   async search(name) {
-    const response = await fetch(API_URL + "search/" + name, {
+    const response = await fetch(ANIME_API + "/search/" + name, {
       method: "GET",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -25,7 +24,7 @@ class Anime {
   }
 
   async getSource(url) {
-    const response = await fetch(API_URL + "source/", {
+    const response = await fetch(ANIME_API + "/source/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",

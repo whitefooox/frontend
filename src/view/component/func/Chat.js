@@ -1,93 +1,86 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChatServiceFactory from "../../../model/services/ChatService";
+import { useSearchAnime } from "../../../state/redux/api/apiAnime";
 
-class Chat extends React.Component {
-    constructor(){
-        super();
-        this.state = {
-            messageValue: "", 
-            messages: []
-        }
-        this.chatService = ChatServiceFactory.createInstance();
-        this.chatService.subscribe((message) => {
-            this.setState({
-                messages: [...this.state.messages, message]
-            });
-        });
-        this.handleText = this.handleText.bind(this);
-        this.send = this.send.bind(this);
-    }
-    componentDidMount(){
-        this.chatService.open();
-    }
-    componentWillUnmount(){
-        this.chatService.close();
-    }
-    handleText(e){
-        this.setState({
-            messageValue: e.target.value
+const chatService = ChatServiceFactory.createInstance();
+
+function Chat(props){
+
+    const [messages, setMessages] = useState([]);
+    const [messageValue, setMessageValue] = useState("");
+    const searchAnime = useSearchAnime();
+
+    useEffect(() => {
+        chatService.subscribe(message => {
+            setMessages(messages => [...messages, message]);
         })
-    }
-    send(){
-        if(this.state.messageValue){
-            this.chatService.sendMessage(this.state.messageValue);
-            this.setState({
-                messageValue: ""
-            })
+        chatService.open();
+        return () => {
+            chatService.close();
+        }
+    }, []);
+    
+    function send(){
+        if(messageValue){
+            chatService.sendMessage(messageValue);
+            setMessageValue("");
         }
     }
-    render(){
-        return (
-            <div>
-                <p>Chat</p>
-                <div style={{
-                    height: "300px",
-                    overflowY: "scroll"
-                }}>
-                    {this.state.messages.map((message, index) => (
-                        message.type === "user" ?
-                        <div key={index} style={{
-                            marginBottom: "10px",
-                            
-                        }}>
-                            <span style={{
-                                color: "blue",
-                                backgroundColor: "#bce9f7",
-                            }}>{"[   " + message.username + "   ]"}</span>
-                            <span style={{
-                                wordWrap: "break-word"
-                            }}>&nbsp;{message.text}</span>
-                        </div>
-                        : 
+    
+    return (
+        <div>
+            <p>Chat</p>
+            <div style={{
+                height: "300px",
+                overflowY: "scroll"
+            }}>
+                {messages.map((message, index) => (
+                    message.type === "user" ?
+                    <div key={index} style={{
+                        marginBottom: "10px",
                         
-                        message.type === "recommended" ?
-                        <div key={index} style={{
-                            marginBottom: "10px",
-                            
-                        }}>
-                            <span style={{
-                                wordWrap: "break-word",
-                                backgroundColor: "#FFF8DC"
-                            }}>&nbsp;{"🔹" + message.text + "🔹"}</span>
-                        </div>
-                        : 
+                    }}>
+                        <span style={{
+                            color: "blue",
+                            backgroundColor: "#bce9f7",
+                        }}>{"[   " + message.username + "   ]"}</span>
+                        <span style={{
+                            wordWrap: "break-word"
+                        }}>&nbsp;{message.text}</span>
+                    </div>
+                    : 
+                    
+                    message.type === "recommended" ?
+                    <div key={index} style={{
+                        marginBottom: "10px",
                         
-                        <div key={index} style={{
-                            marginBottom: "10px",
-                            
-                        }}>
-                            <span style={{
-                                wordWrap: "break-word",
-                                backgroundColor: "#00FFFF"
-                            }}>&nbsp;{message.text}</span>
-                        </div>
-                    ))}
-                </div>
-                <input type="text" onChange={this.handleText} value={this.state.messageValue}></input>
-                <button onClick={this.send}>{"--->"}</button>
+                    }}
+                    onClick={() => {
+                        searchAnime(message.text.replace(/[^А-яA-z]/g, ' ').replace(/^ +| +$|( ) +/g,"$1"));
+                    }}
+                    >
+                        <span style={{
+                            wordWrap: "break-word",
+                            backgroundColor: "#FFF8DC"
+                        }}>&nbsp;{"🔹" + message.text + "🔹"}</span>
+                    </div>
+                    : 
+                    
+                    <div key={index} style={{
+                        marginBottom: "10px",
+                        
+                    }}>
+                        <span style={{
+                            wordWrap: "break-word",
+                            backgroundColor: "#00FFFF"
+                        }}>&nbsp;{message.text}</span>
+                    </div>
+                ))}
             </div>
-        )
-    }
+            <input type="text" onChange={(e) => setMessageValue(e.target.value)} value={messageValue}></input>
+            <button onClick={() => send()}>{"--->"}</button>
+        </div>
+    )
 }
 
 export default Chat;

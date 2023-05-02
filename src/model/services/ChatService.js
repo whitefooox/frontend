@@ -1,8 +1,7 @@
 import Message from "../dto/Message";
 import AuthServiceFactory from "./AuthService";
 import Store from "./Store";
-
-const API_URL = "ws://localhost:8080/web/chat";
+import { CHAT_API } from "../../config";
 
 class ChatService extends Store {
     sendMessage(text){
@@ -18,7 +17,7 @@ class ChatService extends Store {
     }
     open(){
         this.username = AuthServiceFactory.createInstance().getLogin();
-        this.connection = new WebSocket(API_URL + "/" + this.username);
+        this.connection = new WebSocket(CHAT_API + "/" + this.username);
         this.connection.onmessage = (event) => {
             this._getMessage(event.data);
         };
