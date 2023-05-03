@@ -26,21 +26,21 @@ function Login(props){
     return (
         <div className={classes.login__form}>
             <LabelInput
-                title="Login"
+                title="Имя пользователя"
                 type="text"
                 getValue={setLogin}
             ></LabelInput>
             <LabelInput
-                title="Password"
+                title="Пароль"
                 type="password"
                 getValue={setPassword}
             >
             </LabelInput>
             <Button
-                name="ok"
+                name="Войти"
                 onClick={() => loginUse(login, password)}
             ></Button>
-            {isLoginStatus === false && <ErrorMessage text="Error! Incorrect data :("></ErrorMessage>}
+            {isLoginStatus === false && <ErrorMessage text="Что-то не так :("></ErrorMessage>}
         </div>
     )
 }

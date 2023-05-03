@@ -12,7 +12,7 @@ function Auth(props){
         <div className={classes.auth__wrapper}>
             {isRegistration ? <Registration/> : <Login/>}
             <Button
-                name={isRegistration ? "Already have an account?" : "Create an account"}
+                name={isRegistration ? "Уже есть аккаунт?" : "Создать аккаунт"}
                 onClick={() => {setIsRegistration(!isRegistration)}}
             ></Button>
         </div>

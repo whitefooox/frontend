@@ -1,6 +1,6 @@
 import classes from './LabelInput.module.css'
 
-function AuthInput(props){
+function LabelInput(props){
     return (
         <div className={classes.input__container}>
           <label>{props.title}</label>
@@ -9,4 +9,4 @@ function AuthInput(props){
     )
 }
 
-export default AuthInput;
+export default LabelInput;

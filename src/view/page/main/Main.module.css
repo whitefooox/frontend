@@ -1,0 +1,31 @@
+.main_page__wrapper {
+    
+}
+
+.main_page__wrapper header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+}
+
+.button_logout__wrapper {
+    margin-left: 40px;
+}
+
+.content__wrapper {
+    margin-top: 20px;
+    display: flex;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat__wrapper {
+    background-color: red;
+}
+
+.info__wrapper {
+
+}

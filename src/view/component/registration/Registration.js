@@ -27,23 +27,23 @@ function Registration(props){
     return (
         <div className={classes.registration__form}>
             <LabelInput
-                title="Login"
+                title="Имя пользователя"
                 type="text"
                 getValue={setLogin}
             ></LabelInput>
             <LabelInput
-                title="Password"
+                title="Пароль"
                 type="password"
                 getValue={setPassword}
             >
             </LabelInput>
             <LabelInput
-                title="Email"
+                title="Почта"
                 type="email"
                 getValue={setEmail}
             ></LabelInput>
             <Button
-                name="ok"
+                name="Зарегистрироваться"
                 onClick={() => registrationUse(login, password, email)}
             ></Button>
             {isRegistrationStatus === false && <ErrorMessage text="Error! Incorrect data :("></ErrorMessage>}

@@ -8,5 +8,10 @@
 .input__container input {
     height: 25px;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 4px;                                           
+    border-radius: 4px;      
+    font-size: 15px;                                     
+}
+
+.input__container label {    
+    font-size: 15px;                                     
 }

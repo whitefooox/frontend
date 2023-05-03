@@ -1,4 +1,5 @@
 import React from "react";
+import classes from './Select.module.css';
 
 function Select(props){
 
@@ -13,7 +14,7 @@ function Select(props){
     }
 
     return (
-        <select onChange={handleSelect}>
+        <select className={classes.select} onChange={handleSelect}>
             {options}
         </select>
     )
