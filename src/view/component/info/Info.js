@@ -10,8 +10,8 @@ function Info(props){
     if(statusSearch === "search"){
         return (
             <div className={classes.anime_card}>
-                <img className={classes.anime_card__image} src="https://media.tenor.com/qTmmN_nT1XUAAAAM/anime-searching.gif" alt="Anime Image"></img>
-                <h2 className={classes.anime_card__title}>Поищем-ка</h2>
+                <img className={classes.anime_card__image} src="https://vk.com/sticker/1-75577-256" alt="Anime Image"></img>
+                <h2 className={classes.anime_card__title}>Поиск</h2>
             </div>
         )
     } else if (statusSearch === "ok"){
@@ -24,14 +24,14 @@ function Info(props){
     } else if(statusSearch === "error"){
         return (
             <div className={classes.anime_card}>
-                <img className={classes.anime_card__image} src="https://media.tenor.com/68ogcT1aflwAAAAd/anime-i-dont-know.gif" alt="Anime Image"></img>
+                <img className={classes.anime_card__image} src="https://vk.com/sticker/1-86063-256" alt="Anime Image"></img>
                 <h2 className={classes.anime_card__title}>Не найдено</h2>
             </div>
         )
     } else {
         return (
             <div className={classes.anime_card}>
-                <img className={classes.anime_card__hello} src="https://stickerbase.ru/wp-content/uploads/2020/10/51567-150x150.png" alt="Anime Image"></img>
+                <img className={classes.anime_card__hello} src="https://vk.com/sticker/1-86078-256" alt="Anime Image"></img>
                 <h1>Добро пожаловать!</h1>
                 <p>Мы рады приветствовать вас на нашем сайте по просмотру аниме! Здесь вы найдете самые популярные и интересные аниме-сериалы, а также сможете делиться своими впечатлениями с другими пользователями.</p>
             </div>
