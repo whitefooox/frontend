@@ -73,41 +73,6 @@ function Chat(props){
         </div>
       </div>
     )
-    
-   /*
-   return (
-    <div>
-    <div className={classes.chat__container}>
-        {messages.map((message, index) => (
-            message.type === "user" ?
-            <div className={classes.user_message} key={index}>
-                <span>{"[   " + message.username + "   ]"}</span>
-                <span>&nbsp;{message.text}</span>
-            </div>
-            : 
-            
-            message.type === "recommended" ?
-            <div key={index} className={classes.recommendation_message}
-            onClick={() => {
-                searchAnime(message.text.replace(/[^А-яA-z]/g, ' ').replace(/^ +| +$|( ) +/g,"$1"));
-            }}
-            >
-                 <span>&nbsp;{message.text}</span>
-            </div>
-            : 
-            
-            <div key={index} className={classes.system_message}>
-                <span>&nbsp;{message.text}</span>
-            </div>
-        ))}
-    </div>
-    <div className={classes.chat_input}>
-        <input type="text" onChange={(e) => setMessageValue(e.target.value)} value={messageValue}></input>
-        <button onClick={() => send()}>{"--->"}</button>
-    </div>
-    </div>
-   )
-   */
 }
 
 export default Chat;

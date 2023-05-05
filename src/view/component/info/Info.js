@@ -19,6 +19,9 @@ function Info(props){
             <div className={classes.anime_card}>
                 <img className={classes.anime_card__image} src={anime.image} alt="Anime Image"></img>
                 <h2 className={classes.anime_card__title}>{anime.name}</h2>
+                <span className={classes.anime_card__description}>
+                    {anime.description}
+                </span>
             </div>
         )
     } else if(statusSearch === "error"){

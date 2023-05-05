@@ -8,7 +8,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     background-color: white;
     margin-bottom: 10px;
-    height: 300px;
+    height: auto;
     width: 730px;
     margin: 10px;
 }
@@ -42,4 +42,14 @@
   
   .anime_card__hello {
     max-width: 100px;
+  }
+
+  .anime_card__description {
+    font-size: 14px;
+    color: #ffffff;
+    margin-top: 10px;
+    line-height: 1.5;
+    background-color: #31364c;
+    border-radius: 8px;
+    padding: 10px;
   }
