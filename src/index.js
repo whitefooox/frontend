@@ -5,8 +5,6 @@ import Auth from './view/page/auth/Auth';
 import Main from './view/page/main/Main';
 import { buildProvider } from './state/redux/api/apiRoot';
 import App from './App';
-import Login from './view/component/login/Login';
-import SearchBar from './view/component/searchBar/SearchBar';
 import Chat from './view/component/chat/Chat';
 
 const Provider = buildProvider();

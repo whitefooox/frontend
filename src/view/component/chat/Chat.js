@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import ChatServiceFactory from "../../../model/services/ChatService";
 import { useSearchAnime } from "../../../state/redux/api/apiAnime";
 import classes from './Chat.module.css';
-
-const chatService = ChatServiceFactory.createInstance();
+import { useConnectToChat, useDisconnectToChat, useSendToChat } from "../../../state/redux/api/apiChat";
 
 function Chat(props){
 
@@ -12,19 +10,23 @@ function Chat(props){
     const searchAnime = useSearchAnime();
     const messageEnd = useRef(null);
 
+    const connect = useConnectToChat();
+    const disconnect = useDisconnectToChat();
+    const sendToChat = useSendToChat();
+
     useEffect(() => {
-        chatService.subscribe(message => {
+        connect((message) => {
+            console.log(message)
             setMessages(messages => [...messages, message]);
         })
-        chatService.open();
         return () => {
-            chatService.close();
+            disconnect();
         }
     }, []);
     
     function send(){
         if(messageValue){
-            chatService.sendMessage(messageValue);
+            sendToChat(messageValue);
             setMessageValue("");
         }
     }
